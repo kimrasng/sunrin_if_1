@@ -5,6 +5,9 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+const chatRouter = require('./src/chat');
+
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
@@ -14,6 +17,8 @@ io.on('connection', (socket) => {
     io.emit('chat message', msg);
   });
 });
+
+app.use('/chat', chatRouter);
 
 server.listen(4000, () => {
   console.log('listening on *:4000');

@@ -1,8 +1,10 @@
 const express = require('express');
-const router = express.rout();
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
-router.get('/', (req, res) => {
-    res.send('chat')
-});
+
 
 module.exports = router;

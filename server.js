@@ -1,11 +1,20 @@
 const express = require('express');
 const app = express();
-const port = 4000;
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
-app.get('/', function (req, res) {
-  const mainPagePath = path.join(__dirname, './page/index.html');
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
 });
 
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
+  });
+});
 
-console.log("start server on port http://localhost:" + port);
-app.listen(port);
+server.listen(4000, () => {
+  console.log('listening on *:4000');
+});

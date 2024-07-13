@@ -4,13 +4,11 @@ const app = express();
 const server = http.createServer(app);
 const socketio = require('socket.io');
 const sqlite3 = require('sqlite3').verbose();
-const cookieParser = require('cookie-parser');
 const db = new sqlite3.Database(':memory:');
 const io = socketio(server);
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 // databass 테이블 생성
 db.serialize(() => {

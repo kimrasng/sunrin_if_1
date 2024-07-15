@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
 
   // 채팅 기능
   socket.on('chat message', (msg) => {
-    io.emit('chat message', `[${socket.username}] : ${msg}`);
+    io.emit('chat message', `${socket.username} : ${msg}`);
   });
 
   // 퇴장 기능
